@@ -32,8 +32,12 @@ Page({
     this.setData({
       prizes: app.globalData.prizes,
       spinDuration: app.globalData.spinDuration
+    }, () => {
+      // 延迟一小段时间确保 Canvas 节点完全渲染出来，防止 exec 发生 timeout 错误
+      setTimeout(() => {
+        this.drawWheel();
+      }, 100);
     });
-    this.drawWheel();
   },
 
   playTick() {
