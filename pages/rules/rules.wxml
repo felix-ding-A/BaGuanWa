@@ -1,0 +1,55 @@
+<view class="container">
+  <button class="back-btn" bindtap="goBack">← 返回转盘</button>
+  
+  <view class="rules-card">
+    <view class="title">🎲 活动规则</view>
+    
+    <view class="rules-content">
+      <view class="rule-block bg-blue">
+        <view class="rule-title">📋 活动说明</view>
+        <view class="rule-text">本活动为合法营销抽奖活动，旨在回馈用户，增加互动乐趣。</view>
+      </view>
+
+      <view class="rule-block bg-green">
+        <view class="rule-title">🎯 参与方式</view>
+        <view class="rule-text">点击"开始抽奖"按钮即可参与，每次抽奖结果完全随机，概率公开透明。</view>
+      </view>
+
+      <view class="rule-block bg-yellow">
+        <view class="rule-title">🏆 奖品设置</view>
+        <view class="rule-text">所有奖品及中奖概率均可在转盘上查看，确保公平公正。</view>
+      </view>
+
+      <view class="rule-block bg-purple">
+        <view class="rule-title">⚠️ 温馨提示</view>
+        <view class="rule-text">本活动仅供娱乐，请理性参与。活动最终解释权归主办方所有。</view>
+      </view>
+    </view>
+    
+    <view class="admin-section">
+      <view class="admin-hint">管理员专用</view>
+      <button class="login-btn" bindtap="goToLogin">管理员登录</button>
+    </view>
+  </view>
+
+  <!-- 模拟广告全屏遮罩 -->
+  <view class="ad-overlay" wx:if="{{showAd}}">
+    <view class="ad-content">
+      <view class="ad-placeholder">
+        <text class="ad-text">这里是一段精彩的赞助商广告</text>
+        <text class="ad-subtext">广告倒计时：{{adCountdown}}秒</text>
+      </view>
+      <button class="skip-btn" bindtap="skipAd">跳过广告</button>
+    </view>
+  </view>
+
+  <!-- 密码展示弹窗 -->
+  <view class="pwd-modal" wx:if="{{showPwd}}">
+    <view class="pwd-content">
+      <view class="pwd-title">🎉 感谢观看</view>
+      <view class="pwd-desc">本次生成的临时管理员密码为：</view>
+      <view class="pwd-text">{{generatedPwd}}</view>
+      <button class="copy-btn" bindtap="copyAndLogin">复制密码并登录</button>
+    </view>
+  </view>
+</view>

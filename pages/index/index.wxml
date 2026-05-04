@@ -1,0 +1,24 @@
+<view class="container">
+  <view class="help-btn" bindtap="goToRules">?</view>
+  
+  <view class="title animate-bounce">🎉 幸运大转盘 🎉</view>
+
+  <view class="wheel-container">
+    <view class="pointer"></view>
+    <view class="wheel" animation="{{animationData}}">
+      <canvas type="2d" id="wheelCanvas" style="width: 300px; height: 300px;"></canvas>
+    </view>
+  </view>
+
+  <button class="spin-btn {{isSpinning ? 'disabled' : ''}}" bindtap="spinWheel" disabled="{{isSpinning}}">
+    {{isSpinning ? '抽奖中...' : '开始抽奖'}}
+  </button>
+
+  <view class="result-modal" wx:if="{{result}}">
+    <view class="result-content">
+      <view class="result-title">🎊 恭喜获得</view>
+      <view class="result-name">{{result}}</view>
+      <button class="close-btn" bindtap="closeResult">确定</button>
+    </view>
+  </view>
+</view>

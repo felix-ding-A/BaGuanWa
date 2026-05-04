@@ -1,0 +1,46 @@
+<scroll-view class="container" scroll-y>
+  <view class="admin-card">
+    <view class="header">
+      <view class="title">⚙️ 控制面板</view>
+      <button class="logout-btn" bindtap="logout">退出登录</button>
+    </view>
+    
+    <view class="section">
+      <view class="section-title">转盘设置</view>
+      <view class="setting-item">
+        <text>旋转时间 (毫秒)</text>
+        <input type="number" class="duration-input" value="{{spinDuration}}" bindinput="onDurationInput" />
+      </view>
+      
+      <view class="setting-item intervention">
+        <text>干预下一次结果</text>
+        <picker mode="selector" range="{{prizes}}" range-key="name" bindchange="onInterventionChange">
+          <view class="picker">
+            {{forcedPrizeName || '请选择奖品 >'}}
+          </view>
+        </picker>
+      </view>
+    </view>
+
+    <view class="section">
+      <view class="section-title">奖项配置 (总概率必须为100)</view>
+      <view class="total-prob {{totalProb === 100 ? 'success' : 'error'}}">当前总概率: {{totalProb}}%</view>
+      
+      <view class="prize-list">
+        <view class="prize-item" wx:for="{{prizes}}" wx:key="id">
+          <input class="prize-name" value="{{item.name}}" bindinput="onPrizeNameInput" data-index="{{index}}" />
+          <input type="number" class="prize-prob" value="{{item.probability}}" bindinput="onPrizeProbInput" data-index="{{index}}" />
+          <text class="percent-sign">%</text>
+          <view class="color-preview" style="background: {{item.color}}" bindtap="changeColor" data-index="{{index}}"></view>
+          <view class="delete-btn" bindtap="deletePrize" data-index="{{index}}">×</view>
+        </view>
+      </view>
+      
+      <view class="action-buttons">
+        <button class="add-btn" bindtap="addPrize">添加奖项</button>
+        <button class="random-btn" bindtap="randomizeProbabilities">随机概率</button>
+      </view>
+      <button class="save-btn" bindtap="saveConfig">保存配置</button>
+    </view>
+  </view>
+</scroll-view>

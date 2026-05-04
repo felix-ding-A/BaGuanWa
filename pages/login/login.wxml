@@ -1,0 +1,15 @@
+<view class="container">
+  <view class="login-card">
+    <view class="icon-wrap">🔒</view>
+    <view class="title">管理员验证</view>
+    
+    <input type="password" class="password-input" placeholder="请输入管理员密码" bindinput="onInput" value="{{password}}" />
+    
+    <view class="error-msg" wx:if="{{error}}">{{error}}</view>
+    
+    <view class="btn-group">
+      <button class="cancel-btn" bindtap="goBack">取消</button>
+      <button class="login-btn" bindtap="login">登录</button>
+    </view>
+  </view>
+</view>
