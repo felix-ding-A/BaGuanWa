@@ -8,6 +8,13 @@ Page({
     generatedPwd: ''
   },
 
+  onLoad() {
+    wx.showShareMenu({
+      withShareTicket: true,
+      menus: ['shareAppMessage', 'shareTimeline']
+    });
+  },
+
   goBack() {
     wx.navigateBack();
   },
@@ -69,5 +76,19 @@ Page({
 
   onUnload() {
     if (this.adTimer) clearInterval(this.adTimer);
+  },
+
+  onShareAppMessage() {
+    return {
+      title: '幸运大转盘 - 活动规则说明',
+      path: '/pages/rules/rules'
+    };
+  },
+
+  onShareTimeline() {
+    return {
+      title: '幸运大转盘 - 活动规则说明',
+      query: ''
+    };
   }
 });

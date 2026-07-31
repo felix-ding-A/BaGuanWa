@@ -1,5 +1,7 @@
 {
   "pages": [
+    "pages/home/home",
+    "pages/quitSmoking/quitSmoking",
     "pages/index/index",
     "pages/rules/rules",
     "pages/login/login",
@@ -7,10 +9,12 @@
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#C084FC",
-    "navigationBarTitleText": "爸管娃",
+    "navigationBarBackgroundColor": "#a18cd1",
+    "navigationBarTitleText": "爸管娃 & 娃管爸",
     "navigationBarTextStyle": "white"
   },
   "style": "v2",
+  "lazyCodeLoading": "requiredComponents",
+  "__usePrivacyCheck__": true,
   "sitemapLocation": "sitemap.json"
 }

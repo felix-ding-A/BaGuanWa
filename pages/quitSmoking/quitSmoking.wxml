@@ -1,0 +1,118 @@
+<view class="container">
+  <!-- 顶部标语磨玻璃卡片 -->
+  <view class="header-card">
+    <view class="banner-text">
+      <view>医学研究表明</view>
+      <view>每吸一支烟大约会缩短20分钟的寿命</view>
+    </view>
+  </view>
+
+  <!-- 表单磨玻璃卡片 -->
+  <view class="form-card">
+    <view class="form-title">📋 请填写老爸吸烟情况</view>
+
+    <!-- 1. 年龄 -->
+    <view class="input-item">
+      <text class="input-label">年龄</text>
+      <view class="input-wrapper {{age && activeFocus !== 'age' ? 'is-filled' : ''}}">
+        <input 
+          class="input-field" 
+          type="number" 
+          placeholder="请输入年龄" 
+          placeholder-class="placeholder-glass"
+          value="{{age}}" 
+          bindinput="onAgeInput" 
+          bindfocus="onAgeFocus" 
+          bindblur="onInputBlur"
+        />
+        <text class="input-unit">岁</text>
+        <text class="filled-check" wx:if="{{age && activeFocus !== 'age'}}">✓</text>
+      </view>
+    </view>
+
+    <!-- 2. 抽几根/天 -->
+    <view class="input-item">
+      <text class="input-label">抽几根/天</text>
+      <view class="input-wrapper {{cigsPerDay && activeFocus !== 'cigsPerDay' ? 'is-filled' : ''}}">
+        <input 
+          class="input-field" 
+          type="number" 
+          placeholder="一盒为20根" 
+          placeholder-class="placeholder-glass"
+          value="{{cigsPerDay}}" 
+          bindinput="onCigsInput" 
+          bindfocus="onCigsFocus" 
+          bindblur="onInputBlur"
+        />
+        <text class="input-unit">根</text>
+        <text class="filled-check" wx:if="{{cigsPerDay && activeFocus !== 'cigsPerDay'}}">✓</text>
+      </view>
+    </view>
+
+    <!-- 3. 几年了？ -->
+    <view class="input-item">
+      <text class="input-label">几年了？</text>
+      <view class="input-wrapper {{smokingYears && activeFocus !== 'smokingYears' ? 'is-filled' : ''}}">
+        <input 
+          class="input-field" 
+          type="number" 
+          placeholder="请输入烟龄" 
+          placeholder-class="placeholder-glass"
+          value="{{smokingYears}}" 
+          bindinput="onYearsInput" 
+          bindfocus="onYearsFocus" 
+          bindblur="onInputBlur"
+        />
+        <text class="input-unit">年</text>
+        <text class="filled-check" wx:if="{{smokingYears && activeFocus !== 'smokingYears'}}">✓</text>
+      </view>
+    </view>
+
+    <!-- 4. 开始戒烟 -->
+    <view class="input-item">
+      <text class="input-label">开始戒烟</text>
+      <picker 
+        mode="date" 
+        value="{{quitDate}}" 
+        bindchange="onQuitDateChange" 
+        bindtap="onQuitDateTap" 
+        bindcancel="onInputBlur"
+        class="picker-wrapper"
+      >
+        <view class="picker-value {{quitDate && activeFocus !== 'quitDate' ? 'is-filled' : ''}}">
+          <text class="picker-text">{{quitDate ? quitDate : '请选择日期'}}</text>
+          <text class="filled-check" wx:if="{{quitDate && activeFocus !== 'quitDate'}}">✓</text>
+          <text class="picker-arrow" wx:else>📅</text>
+        </view>
+      </picker>
+    </view>
+
+    <button class="calc-btn" bindtap="calculateGain">开始计算</button>
+  </view>
+
+  <!-- 计算结果磨玻璃弹窗 -->
+  <view class="result-modal" wx:if="{{showResultModal}}">
+    <view class="result-content">
+      <view class="result-header">🎉 戒烟生命增益成果</view>
+
+      <view class="result-card">
+        <view class="result-row">
+          <text class="row-label">⏳ 生命增益：</text>
+          <text class="row-valueHighlight">{{resultDays}} 天</text>
+        </view>
+        <view class="result-row">
+          <text class="row-label">💰 节省零花钱：</text>
+          <text class="row-valueMoney">￥{{resultMoney}} 元</text>
+        </view>
+        <view class="result-desc">
+          ❤️ 心脏病、糖尿病、癌症、牙齿脱落的风险正在持续降低！
+        </view>
+      </view>
+
+      <view class="modal-buttons">
+        <button class="replay-btn" bindtap="replayVoice">🔊 重新播报</button>
+        <button class="close-btn" bindtap="closeResultModal">确定</button>
+      </view>
+    </view>
+  </view>
+</view>

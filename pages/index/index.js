@@ -2,6 +2,7 @@ const app = getApp();
 
 Page({
   data: {
+    orientation: 'portrait',
     rotation: 0,
     isSpinning: false,
     result: null,
@@ -16,6 +17,12 @@ Page({
       spinDuration: app.globalData.spinDuration
     });
     
+    // 开启微信分享功能（包含发送给朋友和分享到朋友圈）
+    wx.showShareMenu({
+      withShareTicket: true,
+      menus: ['shareAppMessage', 'shareTimeline']
+    });
+
     // 初始化 WebAudioContext 用于生成滴答声
     try {
       this.audioCtx = wx.createWebAudioContext();
@@ -49,8 +56,8 @@ Page({
     
     osc.type = 'sine';
     osc.frequency.setValueAtTime(600, this.audioCtx.currentTime);
-    gain.gain.setValueAtTime(0.1, this.audioCtx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.01, this.audioCtx.currentTime + 0.1);
+    gain.gain.setValueAtTime(1, this.audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.05, this.audioCtx.currentTime + 0.1);
     
     osc.start();
     osc.stop(this.audioCtx.currentTime + 0.1);
@@ -63,7 +70,7 @@ Page({
     
     this.winAudio = wx.createInnerAudioContext();
     this.winAudio.autoplay = true;
-    this.winAudio.src = `https://fanyi.baidu.com/gettts?lan=zh&text=${encodeURIComponent('恭喜获得' + text)}&spd=5&source=web`;
+    this.winAudio.src = `https://fanyi.baidu.com/gettts?lan=zh&text=${encodeURIComponent('恭喜获得' + text)}&spd=5&source=web&per=4&vol=15`;
     
     this.winAudio.onError((res) => {
       console.error('语音播报失败', res);
@@ -111,13 +118,13 @@ Page({
           ctx.save();
           const textAngle = startAngle + anglePerPrize / 2;
           ctx.translate(
-            centerX + Math.cos(textAngle) * (radius * 0.6),
-            centerY + Math.sin(textAngle) * (radius * 0.6)
+            centerX + Math.cos(textAngle) * (radius * 0.85),
+            centerY + Math.sin(textAngle) * (radius * 0.85)
           );
-          ctx.rotate(textAngle + Math.PI / 2);
+          ctx.rotate(textAngle);
           ctx.fillStyle = 'white';
           ctx.font = 'bold 16px sans-serif';
-          ctx.textAlign = 'center';
+          ctx.textAlign = 'right';
           ctx.textBaseline = 'middle';
           ctx.fillText(prize.name, 0, 0);
           ctx.restore();
@@ -136,6 +143,15 @@ Page({
 
   goToRules() {
     wx.navigateTo({ url: '/pages/rules/rules' });
+  },
+
+  toggleOrientation() {
+    this.setData({
+      orientation: this.data.orientation === 'portrait' ? 'landscape' : 'portrait'
+    });
+    setTimeout(() => {
+      this.drawWheel();
+    }, 300);
   },
 
   spinWheel() {
@@ -222,5 +238,25 @@ Page({
   closeResult() {
     if (this.winAudio) this.winAudio.stop();
     this.setData({ result: null });
+  },
+
+  /**
+   * 用户点击右上角分享（发送给朋友）
+   */
+  onShareAppMessage() {
+    return {
+      title: '幸运大转盘 - 看看你的好运气！',
+      path: '/pages/index/index'
+    };
+  },
+
+  /**
+   * 分享到朋友圈
+   */
+  onShareTimeline() {
+    return {
+      title: '幸运大转盘 - 决定今天谁洗碗/看电视/写作业！',
+      query: ''
+    };
   }
 });

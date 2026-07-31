@@ -1,6 +1,6 @@
 {
-  "libVersion": "3.15.2",
-  "projectname": "LuckyWheel",
+  "libVersion": "3.16.2",
+  "projectname": "LuckyWheelMiniProgram",
   "condition": {},
   "setting": {
     "urlCheck": false,

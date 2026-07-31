@@ -1,0 +1,118 @@
+page {
+  height: 100vh;
+  background: linear-gradient(135deg, #7C3AED 0%, #C084FC 50%, #F472B6 100%);
+}
+
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 60rpx 40rpx;
+  box-sizing: border-box;
+}
+
+.header {
+  text-align: center;
+  margin-top: 50rpx;
+}
+
+.app-title {
+  font-size: 52rpx;
+  font-weight: 800;
+  color: #ffffff;
+  text-shadow: 0 6rpx 16rpx rgba(0,0,0,0.25);
+  margin-bottom: 20rpx;
+  letter-spacing: 2rpx;
+}
+
+.app-subtitle {
+  font-size: 28rpx;
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 400;
+  letter-spacing: 1rpx;
+}
+
+.menu-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 40rpx;
+}
+
+/* iOS 磨玻璃卡片样式 */
+.menu-card {
+  background: rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border-radius: 44rpx;
+  padding: 40rpx;
+  display: flex;
+  align-items: center;
+  border: 2rpx solid rgba(255, 255, 255, 0.45);
+  box-shadow: 0 20rpx 50rpx rgba(31, 38, 135, 0.2);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.menu-card:active {
+  transform: scale(0.97);
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.card-icon-box {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 30rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 32rpx;
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8rpx 20rpx rgba(0,0,0,0.1);
+  border: 1rpx solid rgba(255, 255, 255, 0.6);
+}
+
+.svg-icon {
+  width: 60%;
+  height: 60%;
+}
+
+.card-info {
+  flex: 1;
+}
+
+.card-title {
+  font-size: 42rpx;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 10rpx;
+  text-shadow: 0 2rpx 4rpx rgba(0,0,0,0.2);
+}
+
+.card-desc {
+  font-size: 26rpx;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.4;
+}
+
+.card-arrow {
+  width: 48rpx;
+  height: 48rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.arrow-icon {
+  width: 100%;
+  height: 100%;
+}
+
+.footer-tip {
+  font-size: 26rpx;
+  color: rgba(255, 255, 255, 0.75);
+  margin-bottom: 20rpx;
+  letter-spacing: 1rpx;
+}

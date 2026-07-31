@@ -37,8 +37,10 @@
       </view>
       
       <view class="action-buttons">
-        <button class="add-btn" bindtap="addPrize">添加奖项</button>
+        <button class="add-btn" bindtap="addPrize">添加</button>
         <button class="random-btn" bindtap="randomizeProbabilities">随机概率</button>
+        <button class="avg-btn" bindtap="averageProbabilities">平均概率</button>
+        <button class="color-btn" bindtap="randomizeColors">随机颜色</button>
       </view>
       <button class="save-btn" bindtap="saveConfig">保存配置</button>
     </view>

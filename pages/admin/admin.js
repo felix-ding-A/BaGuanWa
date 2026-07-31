@@ -41,7 +41,7 @@ Page({
 
   changeColor(e) {
     const index = e.currentTarget.dataset.index;
-    const colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#98D8C8', '#F7DC6F', '#A78BFA', '#F472B6', '#34D399'];
+    const colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#98D8C8', '#F7DC6F', '#A78BFA', '#F472B6', '#34D399', '#FBBF24', '#60A5FA', '#3B82F6', '#8B5CF6', '#EC4899', '#10B981', '#F59E0B', '#EF4444', '#14B8A6', '#6366F1', '#D946EF'];
     const randomColor = colors[Math.floor(Math.random() * colors.length)];
     const key = `prizes[${index}].color`;
     this.setData({ [key]: randomColor });
@@ -60,8 +60,8 @@ Page({
 
   addPrize() {
     const prizes = this.data.prizes;
-    if (prizes.length >= 10) {
-      wx.showToast({ title: '最多10个奖项', icon: 'none' });
+    if (prizes.length >= 20) {
+      wx.showToast({ title: '最多20个奖项', icon: 'none' });
       return;
     }
     const newPrize = {
@@ -98,6 +98,38 @@ Page({
     wx.showToast({ title: '已随机分配概率', icon: 'none' });
   },
 
+  averageProbabilities() {
+    let prizes = this.data.prizes;
+    let n = prizes.length;
+    if (n === 0) return;
+    
+    let avg = Math.floor(100 / n);
+    let remainder = 100 % n;
+    
+    prizes.forEach((p, index) => {
+      p.probability = avg + (index < remainder ? 1 : 0);
+    });
+    
+    this.setData({ prizes }, this.calculateTotal);
+    wx.showToast({ title: '已平均分配概率', icon: 'none' });
+  },
+
+  randomizeColors() {
+    let prizes = this.data.prizes;
+    let availableColors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#98D8C8', '#F7DC6F', '#A78BFA', '#F472B6', '#34D399', '#FBBF24', '#60A5FA', '#3B82F6', '#8B5CF6', '#EC4899', '#10B981', '#F59E0B', '#EF4444', '#14B8A6', '#6366F1', '#D946EF'];
+    
+    for (let i = availableColors.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [availableColors[i], availableColors[j]] = [availableColors[j], availableColors[i]];
+    }
+    
+    prizes.forEach((p, index) => {
+      p.color = availableColors[index % availableColors.length];
+    });
+    this.setData({ prizes });
+    wx.showToast({ title: '已随机所有颜色', icon: 'none' });
+  },
+
   onInterventionChange(e) {
     const index = e.detail.value;
     const prize = this.data.prizes[index];
@@ -123,7 +155,11 @@ Page({
     wx.setStorageSync('prizes', this.data.prizes);
     wx.setStorageSync('spinDuration', this.data.spinDuration);
     
-    wx.showToast({ title: '保存成功' });
+    // 保存配置后自动退出登录状态，增加广告观看次数
+    app.globalData.isAdmin = false;
+    wx.removeStorageSync('isAdmin');
+    
+    wx.showToast({ title: '保存成功并退出' });
     
     setTimeout(() => {
       wx.navigateBack({ delta: 2 });
@@ -134,5 +170,11 @@ Page({
     app.globalData.isAdmin = false;
     wx.removeStorageSync('isAdmin');
     wx.navigateBack({ delta: 2 });
+  },
+
+  onUnload() {
+    // 只要离开控制面板（不论是保存、退出还是直接返回），都销毁登录状态
+    app.globalData.isAdmin = false;
+    wx.removeStorageSync('isAdmin');
   }
 });

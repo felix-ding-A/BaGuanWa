@@ -151,24 +151,39 @@
 
 .action-buttons {
   display: flex;
+  flex-wrap: wrap;
   gap: 20rpx;
   margin-bottom: 20rpx;
 }
 
+.action-buttons button {
+  flex: 1 1 calc(50% - 10rpx);
+  margin: 0;
+  font-size: 28rpx;
+}
+
 .add-btn {
-  flex: 1;
   background: #ECFDF5;
   color: #10B981;
   border-radius: 20rpx;
-  margin: 0;
 }
 
 .random-btn {
-  flex: 1;
   background: #FEF2F2;
   color: #EF4444;
   border-radius: 20rpx;
-  margin: 0;
+}
+
+.avg-btn {
+  background: #EFF6FF;
+  color: #3B82F6;
+  border-radius: 20rpx;
+}
+
+.color-btn {
+  background: #FDF4FF;
+  color: #D946EF;
+  border-radius: 20rpx;
 }
 
 .save-btn {

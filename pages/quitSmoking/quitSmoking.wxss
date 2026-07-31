@@ -1,0 +1,279 @@
+page {
+  height: 100vh;
+  background: linear-gradient(135deg, #059669 0%, #10B981 50%, #34D399 100%);
+}
+
+.container {
+  min-height: 100vh;
+  padding: 24rpx;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+/* iOS 磨玻璃卡片通用规则 */
+.header-card, .form-card {
+  background: rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border-radius: 36rpx;
+  padding: 30rpx;
+  border: 2rpx solid rgba(255, 255, 255, 0.45);
+  box-shadow: 0 16rpx 40rpx rgba(0, 0, 0, 0.15);
+  color: white;
+}
+
+.header-card {
+  text-align: center;
+  padding: 24rpx 28rpx;
+}
+
+.banner-text {
+  font-size: 30rpx;
+  line-height: 1.6;
+  color: #ffffff;
+  font-weight: 700;
+  text-shadow: 0 2rpx 6rpx rgba(0, 0, 0, 0.2);
+  letter-spacing: 1rpx;
+}
+
+.form-title {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 36rpx;
+  border-bottom: 2rpx solid rgba(255, 255, 255, 0.25);
+  padding-bottom: 24rpx;
+  text-shadow: 0 2rpx 4rpx rgba(0,0,0,0.15);
+}
+
+.input-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 32rpx;
+}
+
+.input-label {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.95);
+  width: 190rpx;
+}
+
+.input-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.28);
+  backdrop-filter: blur(10px);
+  border: 2rpx solid rgba(255, 255, 255, 0.5);
+  border-radius: 24rpx;
+  padding: 0 28rpx;
+  height: 92rpx;
+}
+
+.input-field {
+  flex: 1;
+  font-size: 30rpx;
+  color: #ffffff;
+}
+
+.placeholder-glass {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.input-unit {
+  font-size: 28rpx;
+  color: rgba(255, 255, 255, 0.85);
+  margin-left: 12rpx;
+  font-weight: 500;
+}
+
+.picker-wrapper {
+  flex: 1;
+}
+
+.picker-value {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(255, 255, 255, 0.28);
+  backdrop-filter: blur(10px);
+  border: 2rpx solid rgba(255, 255, 255, 0.5);
+  border-radius: 24rpx;
+  padding: 0 28rpx;
+  height: 92rpx;
+  font-size: 30rpx;
+  color: #ffffff;
+}
+
+/* 已填写（完成输入）样式 */
+.input-wrapper.is-filled, .picker-value.is-filled {
+  background: rgba(16, 185, 129, 0.4);
+  border: 2rpx solid #6EE7B7;
+  box-shadow: 0 4rpx 16rpx rgba(110, 231, 183, 0.3);
+  transition: all 0.3s ease;
+}
+
+.filled-check {
+  color: #6EE7B7;
+  font-weight: bold;
+  font-size: 32rpx;
+  margin-left: 12rpx;
+  text-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.3);
+}
+
+.picker-arrow {
+  font-size: 32rpx;
+}
+
+/* 磨玻璃计算按钮 */
+.calc-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.2) 100%);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 2rpx solid rgba(255, 255, 255, 0.7);
+  color: #ffffff;
+  height: 96rpx;
+  border-radius: 48rpx;
+  font-size: 36rpx;
+  font-weight: 800;
+  margin-top: 40rpx;
+  letter-spacing: 2rpx;
+  box-shadow: 0 12rpx 30rpx rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease;
+  width: 100%;
+}
+
+.calc-btn:active {
+  transform: scale(0.97);
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.calc-btn::after, .replay-btn::after, .close-btn::after {
+  border: none;
+}
+
+/* 磨玻璃结果弹窗 */
+.result-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  padding: 40rpx;
+  box-sizing: border-box;
+}
+
+.result-content {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(35px);
+  -webkit-backdrop-filter: blur(35px);
+  border: 2rpx solid rgba(255, 255, 255, 0.7);
+  border-radius: 44rpx;
+  padding: 44rpx;
+  width: 100%;
+  box-shadow: 0 30rpx 60rpx rgba(0, 0, 0, 0.25);
+  text-align: center;
+}
+
+.result-header {
+  font-size: 40rpx;
+  font-weight: 800;
+  color: #047857;
+  margin-bottom: 30rpx;
+}
+
+.result-card {
+  background: rgba(16, 185, 129, 0.12);
+  border: 2rpx solid rgba(16, 185, 129, 0.3);
+  border-radius: 30rpx;
+  padding: 32rpx;
+  margin-bottom: 40rpx;
+  text-align: left;
+}
+
+.result-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20rpx;
+  font-size: 32rpx;
+}
+
+.row-label {
+  color: #1F2937;
+  font-weight: 600;
+}
+
+.row-valueHighlight {
+  color: #059669;
+  font-weight: 800;
+  font-size: 36rpx;
+}
+
+.row-valueMoney {
+  color: #D97706;
+  font-weight: 800;
+  font-size: 38rpx;
+}
+
+.result-desc {
+  font-size: 26rpx;
+  color: #047857;
+  line-height: 1.5;
+  background: rgba(255, 255, 255, 0.6);
+  padding: 20rpx;
+  border-radius: 16rpx;
+  margin-top: 12rpx;
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 20rpx;
+}
+
+.replay-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  background: #3B82F6;
+  color: white;
+  border-radius: 40rpx;
+  height: 88rpx;
+  font-size: 30rpx;
+  font-weight: 700;
+}
+
+.close-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  background: #10B981;
+  color: white;
+  border-radius: 40rpx;
+  height: 88rpx;
+  font-size: 30rpx;
+  font-weight: 700;
+}

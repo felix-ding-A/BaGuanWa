@@ -1,0 +1,38 @@
+<view class="container">
+  <view class="header">
+    <view class="app-title">✨ 趣味游戏健康生活 ✨</view>
+    <view class="app-subtitle">选择模式，开启互动体验</view>
+  </view>
+
+  <view class="menu-list">
+    <!-- 1. 爸管娃 (大转盘) -->
+    <view class="menu-card card-dad" bindtap="goToDadApp">
+      <view class="card-icon-box box-dad">
+        <image class="svg-icon" src="data:image/svg+xml,%3Csvg%20viewBox%3D%220%200%201024%201024%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Ccircle%20cx%3D%22512%22%20cy%3D%22512%22%20r%3D%22450%22%20fill%3D%22%23FF6B6B%22%2F%3E%3Ccircle%20cx%3D%22512%22%20cy%3D%22512%22%20r%3D%22380%22%20fill%3D%22%23ffffff%22%2F%3E%3Cpath%20d%3D%22M512%20132L512%20892M132%20512L892%20512M243%20243L781%20781M243%20781L781%20243%22%20stroke%3D%22%23FFD166%22%20stroke-width%3D%2236%22%2F%3E%3Ccircle%20cx%3D%22512%22%20cy%3D%22512%22%20r%3D%22140%22%20fill%3D%22%234ECDC4%22%2F%3E%3Cpath%20d%3D%22M512%20420L512%20320%22%20stroke%3D%22%23ffffff%22%20stroke-width%3D%2230%22%20stroke-linecap%3D%22round%22%2F%3E%3C%2Fsvg%3E" />
+      </view>
+      <view class="card-info">
+        <view class="card-title">爸管娃</view>
+        <view class="card-desc">幸运大转盘 - 抽取家务与奖惩</view>
+      </view>
+      <view class="card-arrow">
+        <image class="arrow-icon" src="data:image/svg+xml,%3Csvg%20viewBox%3D%220%200%201024%201024%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M340%20208L644%20512L340%20816%22%20stroke%3D%22rgba(255%2C255%2C255%2C0.8)%22%20stroke-width%3D%2280%22%20stroke-linecap%3D%22round%22%20fill%3D%22none%22%2F%3E%3C%2Fsvg%3E" />
+      </view>
+    </view>
+
+    <!-- 2. 娃管爸 (健康爱心护盾) -->
+    <view class="menu-card card-kid" bindtap="goToKidApp">
+      <view class="card-icon-box box-kid">
+        <image class="svg-icon" src="data:image/svg+xml,%3Csvg%20viewBox%3D%220%200%201024%201024%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M512%2080L860%20200V480C860%20700%20710%20880%20512%20940C314%20880%20164%20700%20164%20480V200L512%2080Z%22%20fill%3D%22%2310B981%22%2F%3E%3Cpath%20d%3D%22M512%20320C440%20250%20330%20300%20330%20400C330%20510%20512%20650%20512%20650C512%20650%20694%20510%20694%20400C694%20300%20584%20250%20512%20320Z%22%20fill%3D%22%23ffffff%22%2F%3E%3C%2Fsvg%3E" />
+      </view>
+      <view class="card-info">
+        <view class="card-title">娃管爸</view>
+        <view class="card-desc">戒烟计算器 - 守护老爸健康与钱包</view>
+      </view>
+      <view class="card-arrow">
+        <image class="arrow-icon" src="data:image/svg+xml,%3Csvg%20viewBox%3D%220%200%201024%201024%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M340%20208L644%20512L340%20816%22%20stroke%3D%22rgba(255%2C255%2C255%2C0.8)%22%20stroke-width%3D%2280%22%20stroke-linecap%3D%22round%22%20fill%3D%22none%22%2F%3E%3C%2Fsvg%3E" />
+      </view>
+    </view>
+  </view>
+
+  <view class="footer-tip">💡 轻松互动 · 健康生活</view>
+</view>
