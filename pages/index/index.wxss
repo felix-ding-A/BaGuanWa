@@ -51,7 +51,30 @@
   height: 55%;
 }
 
+.custom-bg-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.custom-bg-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.12);
+  z-index: 1;
+  pointer-events: none;
+}
+
 .title {
+  position: relative;
+  z-index: 10;
   font-size: 60rpx;
   color: white;
   margin-bottom: 60rpx;
@@ -99,6 +122,8 @@
 }
 
 .spin-btn {
+  position: relative;
+  z-index: 10;
   background: linear-gradient(to right, #FBBF24, #F97316);
   color: white;
   padding: 0 80rpx;
@@ -230,5 +255,445 @@
     line-height: 30px;
     font-size: 14px;
     border-radius: 15px;
+  }
+}
+
+/* ====================================================
+   ✨ 酷炫动态背景特效系统 (6大模式)
+   ==================================================== */
+
+/* --- 1. 极光流动 (Aurora Wave) --- */
+.effect-aurora {
+  background: #020617 !important;
+}
+
+.dynamic-aurora-wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.aurora-light {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80rpx);
+  opacity: 0.65;
+}
+
+.aurora-light.a1 {
+  width: 600rpx;
+  height: 600rpx;
+  background: #3B82F6;
+  top: -100rpx;
+  left: -100rpx;
+  animation: auroraFloat1 10s ease-in-out infinite alternate;
+}
+
+.aurora-light.a2 {
+  width: 500rpx;
+  height: 500rpx;
+  background: #8B5CF6;
+  top: 30%;
+  right: -80rpx;
+  animation: auroraFloat2 12s ease-in-out infinite alternate;
+}
+
+.aurora-light.a3 {
+  width: 650rpx;
+  height: 650rpx;
+  background: #10B981;
+  bottom: -150rpx;
+  left: 10%;
+  animation: auroraFloat3 14s ease-in-out infinite alternate;
+}
+
+@keyframes auroraFloat1 {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(140rpx, 180rpx) scale(1.2); }
+  100% { transform: translate(-60rpx, 240rpx) scale(0.9); }
+}
+
+@keyframes auroraFloat2 {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-160rpx, -120rpx) scale(1.15); }
+  100% { transform: translate(-100rpx, 150rpx) scale(0.85); }
+}
+
+@keyframes auroraFloat3 {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(120rpx, -160rpx) scale(1.1); }
+  100% { transform: translate(-80rpx, -100rpx) scale(1.3); }
+}
+
+/* --- 2. 迪斯科闪屏 (Disco Party Strobe) --- */
+.effect-disco {
+  background: #1E1B4B !important;
+  transition: background 0.3s;
+}
+
+.dynamic-disco-wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.disco-strobe-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.3;
+  background: linear-gradient(135deg, #FF007F, #7928CA, #0070F3);
+  animation: discoColorShift 6s ease infinite;
+}
+
+.disco-beam {
+  position: absolute;
+  top: -50%;
+  left: 50%;
+  width: 4rpx;
+  height: 200%;
+  background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.8), transparent);
+  filter: blur(4rpx);
+}
+
+.disco-beam.b1 {
+  transform: rotate(35deg);
+  animation: laserSweep1 4s ease-in-out infinite alternate;
+}
+
+.disco-beam.b2 {
+  transform: rotate(-35deg);
+  animation: laserSweep2 5s ease-in-out infinite alternate;
+}
+
+@keyframes laserSweep1 {
+  from { transform: rotate(20deg) scaleX(1); opacity: 0.2; }
+  to { transform: rotate(60deg) scaleX(3); opacity: 0.7; }
+}
+
+@keyframes laserSweep2 {
+  from { transform: rotate(-20deg) scaleX(1); opacity: 0.2; }
+  to { transform: rotate(-60deg) scaleX(3); opacity: 0.7; }
+}
+
+@keyframes discoColorShift {
+  0% { filter: hue-rotate(0deg); }
+  50% { filter: hue-rotate(180deg); }
+  100% { filter: hue-rotate(360deg); }
+}
+
+/* 抽奖进行中：迪斯科狂欢爆闪！ */
+.effect-disco.is-spinning .disco-strobe-layer {
+  opacity: 0.85;
+  animation: discoFastStrobe 0.15s infinite alternate !important;
+}
+
+@keyframes discoFastStrobe {
+  0% { background: #E11D48; }
+  25% { background: #8B5CF6; }
+  50% { background: #06B6D4; }
+  75% { background: #F59E0B; }
+  100% { background: #10B981; }
+}
+
+/* --- 3. 星空流星雨 (Stars & Meteors) --- */
+.effect-stars {
+  background: radial-gradient(ellipse at bottom, #111827 0%, #030712 100%) !important;
+}
+
+.dynamic-stars-wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.stars-stars-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(2rpx 2rpx at 40rpx 60rpx, #fff, transparent),
+    radial-gradient(2rpx 2rpx at 150rpx 200rpx, #fff, transparent),
+    radial-gradient(3rpx 3rpx at 300rpx 100rpx, #A7F3D0, transparent),
+    radial-gradient(2rpx 2rpx at 500rpx 250rpx, #fff, transparent),
+    radial-gradient(3rpx 3rpx at 650rpx 150rpx, #BAE6FD, transparent),
+    radial-gradient(2rpx 2rpx at 100rpx 450rpx, #fff, transparent),
+    radial-gradient(3rpx 3rpx at 250rpx 600rpx, #FDE68A, transparent),
+    radial-gradient(2rpx 2rpx at 400rpx 500rpx, #fff, transparent),
+    radial-gradient(2rpx 2rpx at 600rpx 700rpx, #fff, transparent),
+    radial-gradient(3rpx 3rpx at 700rpx 400rpx, #DDD6FE, transparent);
+  animation: starTwinkle 3s ease-in-out infinite alternate;
+}
+
+@keyframes starTwinkle {
+  0% { opacity: 0.4; }
+  100% { opacity: 1; }
+}
+
+.shooting-star {
+  position: absolute;
+  height: 3rpx;
+  background: linear-gradient(-45deg, #fff, rgba(255,255,255,0));
+  filter: drop-shadow(0 0 8rpx #fff);
+  border-radius: 999rpx;
+  transform: rotate(-45deg);
+  opacity: 0;
+}
+
+.shooting-star.s1 {
+  top: 10%;
+  right: 15%;
+  width: 180rpx;
+  animation: meteorShoot 5s ease-in-out infinite;
+  animation-delay: 0.5s;
+}
+
+.shooting-star.s2 {
+  top: 25%;
+  right: 40%;
+  width: 140rpx;
+  animation: meteorShoot 7s ease-in-out infinite;
+  animation-delay: 2.8s;
+}
+
+.shooting-star.s3 {
+  top: 5%;
+  right: 60%;
+  width: 220rpx;
+  animation: meteorShoot 6s ease-in-out infinite;
+  animation-delay: 4.2s;
+}
+
+@keyframes meteorShoot {
+  0% { transform: rotate(-45deg) translate(0, 0); opacity: 0; }
+  5% { opacity: 1; }
+  15% { transform: rotate(-45deg) translate(-400rpx, 400rpx); opacity: 0; }
+  100% { transform: rotate(-45deg) translate(-400rpx, 400rpx); opacity: 0; }
+}
+
+/* --- 4. 赛博霓虹网格 (Cyberpunk 80s) --- */
+.effect-cyber {
+  background: linear-gradient(to bottom, #09090B 0%, #18092B 65%, #2E0854 100%) !important;
+}
+
+.dynamic-cyber-wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.cyber-sun {
+  position: absolute;
+  top: 22%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 280rpx;
+  height: 280rpx;
+  border-radius: 50%;
+  background: linear-gradient(to bottom, #FBBF24, #F43F5E);
+  box-shadow: 0 0 80rpx rgba(244, 63, 94, 0.6);
+  opacity: 0.8;
+}
+
+.cyber-horizon {
+  position: absolute;
+  top: 55%;
+  left: 0;
+  width: 100%;
+  height: 4rpx;
+  background: #06B6D4;
+  box-shadow: 0 0 20rpx #06B6D4, 0 0 40rpx #EC4899;
+}
+
+.cyber-grid {
+  position: absolute;
+  bottom: 0;
+  left: -50%;
+  width: 200%;
+  height: 45%;
+  background-image: 
+    linear-gradient(to right, rgba(6, 182, 212, 0.45) 2rpx, transparent 2rpx),
+    linear-gradient(to bottom, rgba(236, 72, 153, 0.45) 2rpx, transparent 2rpx);
+  background-size: 60rpx 40rpx;
+  transform: perspective(300rpx) rotateX(60deg);
+  transform-origin: center top;
+  animation: cyberGridMove 2s linear infinite;
+}
+
+@keyframes cyberGridMove {
+  from { background-position: 0 0; }
+  to { background-position: 0 40rpx; }
+}
+
+/* --- 5. 舞台聚光特写 (Spotlight) --- */
+.effect-spotlight {
+  background: #050508 !important;
+  transition: all 0.5s ease;
+}
+
+.dynamic-spotlight-wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.spotlight-beam {
+  position: absolute;
+  top: -80rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 450rpx;
+  height: 800rpx;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.35), rgba(255, 215, 0, 0.08) 70%, transparent);
+  clip-path: polygon(45% 0%, 55% 0%, 100% 100%, 0% 100%);
+  filter: blur(12rpx);
+  animation: spotlightSway 6s ease-in-out infinite alternate;
+}
+
+@keyframes spotlightSway {
+  0% { transform: translateX(-52%) rotate(-3deg); }
+  100% { transform: translateX(-48%) rotate(3deg); }
+}
+
+/* 抽奖进行中：背景骤暗，聚光灯打在转盘上！ */
+.effect-spotlight.is-spinning {
+  background: #000000 !important;
+}
+
+.effect-spotlight.is-spinning .spotlight-beam {
+  opacity: 1;
+  filter: blur(6rpx);
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.6), rgba(251, 191, 36, 0.35) 75%, transparent);
+  animation: none;
+  transform: translateX(-50%);
+}
+
+/* --- 6. 街机跑马灯灯珠环 (Marquee Bulbs) --- */
+.effect-marquee {
+  background: radial-gradient(circle at center, #1E1B4B 0%, #09090B 100%) !important;
+}
+
+.marquee-bulb-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.bulb {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 14rpx;
+  height: 14rpx;
+  border-radius: 50%;
+  background: #FBBF24;
+  box-shadow: 0 0 10rpx #FBBF24, 0 0 20rpx #F59E0B;
+  transform: translate(-50%, -50%) rotate(var(--angle)) translateY(-162px);
+  transition: all 0.2s;
+  animation: bulbTwinkle 1.2s ease-in-out infinite alternate;
+}
+
+.bulb:nth-child(even) {
+  background: #FFFFFF;
+  box-shadow: 0 0 10rpx #FFFFFF, 0 0 18rpx #60A5FA;
+  animation-delay: 0.6s;
+}
+
+@keyframes bulbTwinkle {
+  0% { opacity: 0.4; transform: translate(-50%, -50%) rotate(var(--angle)) translateY(-162px) scale(0.85); }
+  100% { opacity: 1; transform: translate(-50%, -50%) rotate(var(--angle)) translateY(-162px) scale(1.15); }
+}
+
+/* 抽奖进行中：飞速旋转跑马追光！ */
+.marquee-bulb-ring.spinning {
+  animation: marqueeChaseRing 0.8s linear infinite;
+}
+
+@keyframes marqueeChaseRing {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.marquee-bulb-ring.spinning .bulb {
+  animation: none;
+  opacity: 1;
+}
+
+.marquee-bulb-ring.spinning .bulb:nth-child(3n) {
+  background: #EC4899;
+  box-shadow: 0 0 16rpx #EC4899;
+}
+
+.marquee-bulb-ring.spinning .bulb:nth-child(3n+1) {
+  background: #FBBF24;
+  box-shadow: 0 0 16rpx #FBBF24;
+}
+
+.marquee-bulb-ring.spinning .bulb:nth-child(3n+2) {
+  background: #06B6D4;
+  box-shadow: 0 0 16rpx #06B6D4;
+}
+
+/* 中奖狂欢：全圈爆闪！ */
+.marquee-bulb-ring.celebrating .bulb {
+  animation: bulbCelebrate 0.2s infinite alternate !important;
+}
+
+@keyframes bulbCelebrate {
+  0% { opacity: 0.2; transform: translate(-50%, -50%) rotate(var(--angle)) translateY(-162px) scale(0.8); }
+  100% { opacity: 1; transform: translate(-50%, -50%) rotate(var(--angle)) translateY(-162px) scale(1.3); }
+}
+
+/* 横屏适配 */
+@media (orientation: landscape) {
+  .marquee-bulb-ring {
+    width: 240px;
+    height: 240px;
+  }
+  .bulb {
+    transform: translate(-50%, -50%) rotate(var(--angle)) translateY(-120px);
+  }
+  @keyframes bulbTwinkle {
+    0% { opacity: 0.4; transform: translate(-50%, -50%) rotate(var(--angle)) translateY(-120px) scale(0.85); }
+    100% { opacity: 1; transform: translate(-50%, -50%) rotate(var(--angle)) translateY(-120px) scale(1.15); }
+  }
+  @keyframes bulbCelebrate {
+    0% { opacity: 0.2; transform: translate(-50%, -50%) rotate(var(--angle)) translateY(-120px) scale(0.8); }
+    100% { opacity: 1; transform: translate(-50%, -50%) rotate(var(--angle)) translateY(-120px) scale(1.3); }
   }
 }

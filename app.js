@@ -9,7 +9,8 @@ App({
       { id: '6', name: '去游乐园', color: '#F7DC6F', probability: 16 }
     ],
     spinDuration: 3000,
-    isAdmin: false
+    isAdmin: false,
+    wheelBg: null
   },
   onLaunch() {
     const prizes = wx.getStorageSync('prizes');
@@ -23,6 +24,10 @@ App({
     const isAdmin = wx.getStorageSync('isAdmin');
     if (isAdmin) {
       this.globalData.isAdmin = isAdmin;
+    }
+    const wheelBg = wx.getStorageSync('wheelBg');
+    if (wheelBg) {
+      this.globalData.wheelBg = wheelBg;
     }
   }
 })

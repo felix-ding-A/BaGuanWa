@@ -2,7 +2,27 @@
   <view class="admin-card">
     <view class="header">
       <view class="title">⚙️ 控制面板</view>
-      <button class="logout-btn" bindtap="logout">退出登录</button>
+      <view class="logout-btn" bindtap="logout">退出登录</view>
+    </view>
+
+    <!-- 顶部修改背景功能入口 -->
+    <view class="top-bg-entry" bindtap="openBgModal" hover-class="entry-hover">
+      <view class="entry-left">
+        <view class="entry-icon-wrap">🎨</view>
+        <view class="entry-info">
+          <view class="entry-title">修改转盘背景</view>
+          <view class="entry-desc">
+            <text wx:if="{{tempBgType === 'effect'}}">当前：✨ 动效 - {{tempBgEffect === 'aurora' ? '极光流动' : (tempBgEffect === 'marquee' ? '街机跑马灯' : (tempBgEffect === 'disco' ? '迪斯科闪屏' : (tempBgEffect === 'stars' ? '星空流星雨' : (tempBgEffect === 'cyber' ? '赛博霓虹' : '聚光灯特写'))))}}</text>
+            <text wx:elif="{{tempBgType === 'image' && tempBgImage}}">当前：已选 9:16 自定义图片背景</text>
+            <text wx:elif="{{tempBgType === 'color'}}">当前：已选调色板自定义颜色</text>
+            <text wx:else>当前：默认浪漫粉紫渐变</text>
+          </view>
+        </view>
+      </view>
+      <view class="entry-right">
+        <text class="entry-btn-text">修改背景</text>
+        <text class="entry-arrow">›</text>
+      </view>
     </view>
     
     <view class="section">
@@ -43,6 +63,142 @@
         <button class="color-btn" bindtap="randomizeColors">随机颜色</button>
       </view>
       <button class="save-btn" bindtap="saveConfig">保存配置</button>
+    </view>
+  </view>
+
+  <!-- 修改背景个性化弹窗 -->
+  <view class="bg-modal-mask" wx:if="{{showBgModal}}" bindtap="closeBgModal" catchtouchmove="preventTouchMove">
+    <view class="bg-modal-card" catchtap="preventBubble">
+      <view class="bg-modal-header">
+        <view class="bg-modal-title">🎨 修改转盘背景</view>
+        <view class="bg-modal-close" bindtap="closeBgModal">✕</view>
+      </view>
+      <view class="bg-modal-subtitle">设置仅作用于转盘页面背景，转盘及奖品保持不变</view>
+
+      <!-- 实时预览区 (9:16 小手机画框) -->
+      <view class="preview-container">
+        <view class="preview-phone">
+          <view class="phone-bg {{tempBgType === 'default' ? 'default-gradient' : ''}} {{tempBgType === 'effect' ? 'effect-preview-' + tempBgEffect : ''}}" style="{{tempBgType === 'color' ? 'background: ' + tempBgColor + ';' : ''}}">
+            <image wx:if="{{tempBgType === 'image' && tempBgImage}}" class="phone-bg-img" src="{{tempBgImage}}" mode="aspectFill" />
+            <!-- 动效小缩略细节 -->
+            <view wx:if="{{tempBgType === 'effect' && tempBgEffect === 'marquee'}}" class="preview-mini-marquee"></view>
+            <view wx:if="{{tempBgType === 'effect' && tempBgEffect === 'stars'}}" class="preview-mini-stars"></view>
+            <view wx:if="{{tempBgType === 'effect' && tempBgEffect === 'cyber'}}" class="preview-mini-cyber"></view>
+            <view wx:if="{{tempBgType === 'effect' && tempBgEffect === 'spotlight'}}" class="preview-mini-spotlight"></view>
+          </view>
+          <view class="phone-wheel-mock">
+            <view class="mock-pointer"></view>
+            <view class="mock-wheel">
+              <view class="mock-center"></view>
+            </view>
+            <text class="mock-label">转盘保持不变</text>
+          </view>
+        </view>
+        <view class="preview-desc">
+          <view class="preview-tag">📱 9:16 实时预览</view>
+          <view class="preview-state-text" wx:if="{{tempBgType === 'effect'}}">当前：✨ 动效 - {{tempBgEffect === 'aurora' ? '极光流动' : (tempBgEffect === 'marquee' ? '街机跑马灯' : (tempBgEffect === 'disco' ? '迪斯科闪屏' : (tempBgEffect === 'stars' ? '星空流星雨' : (tempBgEffect === 'cyber' ? '赛博霓虹' : '聚光灯特写'))))}}</view>
+          <view class="preview-state-text" wx:elif="{{tempBgType === 'image' && tempBgImage}}">当前：已选 9:16 背景图片</view>
+          <view class="preview-state-text" wx:elif="{{tempBgType === 'color'}}">当前：已选调色板颜色</view>
+          <view class="preview-state-text" wx:else>当前：默认浪漫粉紫渐变</view>
+          <view class="preview-sub-tip">💡 转盘各扇形与概率完全不受影响</view>
+        </view>
+      </view>
+
+      <!-- 三种修改方式 Tab 切换 -->
+      <view class="bg-tabs">
+        <view class="bg-tab {{activeTab === 'effect' ? 'active' : ''}}" bindtap="switchBgTab" data-tab="effect">
+          ✨ 酷炫动效
+        </view>
+        <view class="bg-tab {{activeTab === 'image' ? 'active' : ''}}" bindtap="switchBgTab" data-tab="image">
+          🖼️ 上传图片
+        </view>
+        <view class="bg-tab {{activeTab === 'color' ? 'active' : ''}}" bindtap="switchBgTab" data-tab="color">
+          🎨 调色板选色
+        </view>
+      </view>
+
+      <!-- 方式一：酷炫动效模式 -->
+      <view class="tab-body" wx:if="{{activeTab === 'effect'}}">
+        <view class="palette-label">点击选择转盘动态视效氛围</view>
+        <view class="effect-grid">
+          <view 
+            class="effect-card {{tempBgEffect === item.id && tempBgType === 'effect' ? 'selected' : ''}}"
+            wx:for="{{effectList}}"
+            wx:key="id"
+            bindtap="selectEffect"
+            data-effect="{{item.id}}"
+          >
+            <view class="effect-icon-row">
+              <text class="effect-icon">{{item.icon}}</text>
+              <text class="effect-tag">{{item.tag}}</text>
+            </view>
+            <view class="effect-name">{{item.name}}</view>
+            <view class="effect-desc">{{item.desc}}</view>
+            <view class="effect-check" wx:if="{{tempBgEffect === item.id && tempBgType === 'effect'}}">✓</view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 方式二：上传 9:16 图片（不储存到服务器） -->
+      <view class="tab-body" wx:if="{{activeTab === 'image'}}">
+        <view class="upload-area" bindtap="chooseBgImage">
+          <view class="upload-icon">📸</view>
+          <view class="upload-title">{{tempBgImage ? '点击重新选择图片' : '上传 9:16 背景图片'}}</view>
+          <view class="upload-note">本地加载展示 · 图片不存储到服务器</view>
+        </view>
+        <view class="image-actions" wx:if="{{tempBgImage}}">
+          <view class="clear-img-btn" bindtap="clearBgImage">清除已选图片</view>
+        </view>
+        <view class="tip-row">
+          <text>💡 建议选取 9:16 竖屏图片（如 1080×1920），支持裁剪自适应铺满全屏</text>
+        </view>
+      </view>
+
+      <!-- 方式二：根据调色板选择颜色 -->
+      <view class="tab-body" wx:if="{{activeTab === 'color'}}">
+        <!-- 推荐色板 -->
+        <view class="palette-label">精选推荐色系与质感渐变</view>
+        <view class="color-grid">
+          <view 
+            class="color-block {{tempBgColor === item.value && tempBgType === 'color' ? 'selected' : ''}}"
+            wx:for="{{presetColors}}" 
+            wx:key="name" 
+            style="background: {{item.value}};"
+            bindtap="selectPresetColor"
+            data-color="{{item.value}}"
+          >
+            <view class="color-check" wx:if="{{tempBgColor === item.value && tempBgType === 'color'}}">✓</view>
+          </view>
+        </view>
+
+        <!-- 自定义全功能调色板 -->
+        <view class="custom-color-section">
+          <view class="palette-label">彩虹色相自由调节</view>
+          <view class="hue-slider-box">
+            <slider 
+              min="0" 
+              max="360" 
+              value="{{hueValue}}" 
+              activeColor="transparent" 
+              backgroundColor="transparent" 
+              block-size="20" 
+              block-color="#ffffff" 
+              bindchanging="onHueChange" 
+              bindchange="onHueChange" 
+            />
+          </view>
+          <view class="hex-row">
+            <view class="hex-badge" style="background: {{tempBgColor}};"></view>
+            <input class="hex-input" value="{{tempBgColor}}" placeholder="#HEX颜色值" bindinput="onHexInput" />
+          </view>
+        </view>
+      </view>
+
+      <!-- 弹窗底部操作按钮 -->
+      <view class="bg-modal-actions">
+        <button class="modal-reset-btn" bindtap="resetDefaultBg">恢复默认</button>
+        <button class="modal-confirm-btn" bindtap="saveBgSetting">保存并生效</button>
+      </view>
     </view>
   </view>
 </scroll-view>

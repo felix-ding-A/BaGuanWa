@@ -8,10 +8,13 @@ Page({
     result: null,
     spinDuration: 3000,
     prizes: [],
-    animationData: {}
+    animationData: {},
+    bgConfig: null,
+    containerBgStyle: ''
   },
 
   onLoad() {
+    this.applyBackground();
     this.setData({
       prizes: app.globalData.prizes,
       spinDuration: app.globalData.spinDuration
@@ -31,11 +34,24 @@ Page({
     }
   },
 
+  applyBackground() {
+    const wheelBg = app.globalData.wheelBg || wx.getStorageSync('wheelBg') || null;
+    let containerBgStyle = '';
+    if (wheelBg && wheelBg.type === 'color' && wheelBg.value) {
+      containerBgStyle = `background: ${wheelBg.value} !important;`;
+    }
+    this.setData({
+      bgConfig: wheelBg,
+      containerBgStyle: containerBgStyle
+    });
+  },
+
   onUnload() {
     if (this.winAudio) this.winAudio.destroy();
   },
 
   onShow() {
+    this.applyBackground();
     this.setData({
       prizes: app.globalData.prizes,
       spinDuration: app.globalData.spinDuration
